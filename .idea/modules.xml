@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/microlittleblog.iml" filepath="$PROJECT_DIR$/microlittleblog.iml" />
+      <module fileurl="file://$PROJECT_DIR$/microlittleblog-admin/microlittleblog-admin.iml" filepath="$PROJECT_DIR$/microlittleblog-admin/microlittleblog-admin.iml" />
+      <module fileurl="file://$PROJECT_DIR$/microlittleblog-common/microlittleblog-common.iml" filepath="$PROJECT_DIR$/microlittleblog-common/microlittleblog-common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/microlittleblog-framework/microlittleblog-framework.iml" filepath="$PROJECT_DIR$/microlittleblog-framework/microlittleblog-framework.iml" />
+      <module fileurl="file://$PROJECT_DIR$/microlittleblog-service/microlittleblog-service.iml" filepath="$PROJECT_DIR$/microlittleblog-service/microlittleblog-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/microlittleblog-service/microlittleblog-service-common/microlittleblog-service-common.iml" filepath="$PROJECT_DIR$/microlittleblog-service/microlittleblog-service-common/microlittleblog-service-common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/microlittleblog-service/microlittleblog-service-system/microlittleblog-service-system.iml" filepath="$PROJECT_DIR$/microlittleblog-service/microlittleblog-service-system/microlittleblog-service-system.iml" />
+    </modules>
+  </component>
+</project>

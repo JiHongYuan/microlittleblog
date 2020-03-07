@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="microlittleblog-service-system" />
+        <module name="microlittleblog-admin" />
+        <module name="microlittleblog-framework" />
+        <module name="microlittleblog-service-common" />
+        <module name="microlittleblog-common" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="microlittleblog" target="1.8" />
+      <module name="microlittleblog (1)" target="1.8" />
+      <module name="microlittleblog-admin" target="1.8" />
+      <module name="microlittleblog-common" target="1.8" />
+      <module name="microlittleblog-framework" target="1.8" />
+      <module name="microlittleblog-service" target="1.8" />
+      <module name="microlittleblog-service-common" target="1.8" />
+      <module name="microlittleblog-service-system" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+</project>
