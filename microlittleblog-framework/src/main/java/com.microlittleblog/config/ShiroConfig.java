@@ -13,7 +13,6 @@ import com.microlittleblog.shiro.web.filter.sync.SyncOnlineSessionFilter;
 import com.microlittleblog.shiro.web.session.OnlineWebSessionManager;
 import com.microlittleblog.shiro.web.session.SpringSessionValidationScheduler;
 import org.apache.commons.io.IOUtils;
-import org.apache.shiro.cache.ehcache.EhCacheManager;
 import org.apache.shiro.codec.Base64;
 import org.apache.shiro.config.ConfigurationException;
 import org.apache.shiro.io.ResourceUtils;
@@ -118,46 +117,11 @@ public class ShiroConfig {
     private String unauthorizedUrl;
 
     /**
-     * 缓存管理器 使用Ehcache实现
-     */
-    @Bean
-    public EhCacheManager getEhCacheManager() {
-        net.sf.ehcache.CacheManager cacheManager = net.sf.ehcache.CacheManager.getCacheManager("ruoyi");
-        EhCacheManager em = new EhCacheManager();
-        if (cacheManager == null) {
-            em.setCacheManager(new net.sf.ehcache.CacheManager(getCacheManagerConfigFileInputStream()));
-            return em;
-        } else {
-            em.setCacheManager(cacheManager);
-            return em;
-        }
-    }
-
-    /**
-     * 返回配置文件流 避免ehcache配置文件一直被占用，无法完全销毁项目重新部署
-     */
-    public InputStream getCacheManagerConfigFileInputStream() {
-        String configFile = "classpath:ehcache/ehcache-shiro.xml";
-        InputStream inputStream = null;
-        try {
-            inputStream = ResourceUtils.getInputStreamForPath(configFile);
-            byte[] b = IOUtils.toByteArray(inputStream);
-            return new ByteArrayInputStream(b);
-        } catch (IOException e) {
-            throw new ConfigurationException("Unable to obtain input stream for cacheManagerConfigFile [" + configFile + "]", e);
-        } finally {
-            IOUtils.closeQuietly(inputStream);
-        }
-    }
-
-    /**
      * 自定义Realm
      */
     @Bean
-    public UserRealm userRealm(EhCacheManager cacheManager) {
-        UserRealm userRealm = new UserRealm();
-        userRealm.setCacheManager(cacheManager);
-        return userRealm;
+    public UserRealm userRealm() {
+        return new UserRealm();
     }
 
     /**
@@ -183,8 +147,6 @@ public class ShiroConfig {
     @Bean
     public OnlineWebSessionManager sessionManager() {
         OnlineWebSessionManager manager = new OnlineWebSessionManager();
-        // 加入缓存管理器
-        manager.setCacheManager(getEhCacheManager());
         // 删除过期的session
         manager.setDeleteInvalidSessions(true);
         // 设置全局session超时时间
@@ -212,8 +174,6 @@ public class ShiroConfig {
         securityManager.setRealm(userRealm);
         // 记住我
         securityManager.setRememberMeManager(rememberMeManager());
-        // 注入缓存管理器;
-        securityManager.setCacheManager(getEhCacheManager());
         // session管理器
         securityManager.setSessionManager(sessionManager());
         return securityManager;
@@ -224,7 +184,6 @@ public class ShiroConfig {
      */
     public LogoutFilter logoutFilter() {
         LogoutFilter logoutFilter = new LogoutFilter();
-        logoutFilter.setCacheManager(getEhCacheManager());
         logoutFilter.setLoginUrl(loginUrl);
         return logoutFilter;
     }
@@ -335,7 +294,6 @@ public class ShiroConfig {
      */
     public KickoutSessionFilter kickoutSessionFilter() {
         KickoutSessionFilter kickoutSessionFilter = new KickoutSessionFilter();
-        kickoutSessionFilter.setCacheManager(getEhCacheManager());
         kickoutSessionFilter.setSessionManager(sessionManager());
         // 同一个用户最大的会话数，默认-1无限制；比如2的意思是同一个用户允许最多同时两个人登录
         kickoutSessionFilter.setMaxSession(maxSession);

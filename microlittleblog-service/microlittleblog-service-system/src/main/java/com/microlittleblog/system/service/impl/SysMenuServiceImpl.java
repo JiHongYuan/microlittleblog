@@ -3,6 +3,7 @@ package com.microlittleblog.system.service.impl;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.microlittleblog.common.constant.UserConstants;
 import com.microlittleblog.system.domain.SysMenu;
+import com.microlittleblog.system.domain.SysUser;
 import com.microlittleblog.system.mapper.SysMenuMapper;
 import com.microlittleblog.system.service.ISysMenuService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,10 +20,14 @@ import java.util.*;
 @Service
 public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> implements ISysMenuService {
 
-    public static final String PREMISSION_STRING = "perms[\"{0}\"]";
-
     @Autowired
     private SysMenuMapper menuMapper;
+
+    @Override
+    public List<SysMenu> selectMenusByUser(SysUser user) {
+        List<SysMenu> menuList = menuMapper.selectMenusByUserId(user.getUserId());
+        return getChildPerms(menuList);
+    }
 
     @Override
     public int insertMenu(SysMenu menu) {
@@ -42,61 +47,37 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
         return menuMapper.updateById(menu);
     }
 
-    public List<SysMenu> getChildPerms(List<SysMenu> list, int parentId) {
-        List<SysMenu> returnList = new ArrayList<SysMenu>();
-        for (Iterator<SysMenu> iterator = list.iterator(); iterator.hasNext(); ) {
-            SysMenu t = iterator.next();
-            // 一、根据传入的某个父节点ID,遍历该父节点的所有子节点
-            if (t.getParentId() == parentId) {
-                recursionFn(list, t);
-                returnList.add(t);
+    private List<SysMenu> getChildPerms(List<SysMenu> allMenuList) {
+        List<SysMenu> rootList = new ArrayList<>();
+        for (Iterator<SysMenu> lt = allMenuList.iterator(); lt.hasNext(); ) {
+            SysMenu menu = lt.next();
+            if (menu.getParentId() == 0) {
+                rootList.add(menu);
+                lt.remove();
             }
         }
-        return returnList;
+
+        for (SysMenu menu : rootList) {
+            menu.setChildren(getChild(allMenuList, menu.getMenuId()));
+        }
+        return rootList;
     }
 
-    /**
-     * 递归列表
-     *
-     * @param list
-     * @param t
-     */
-    private void recursionFn(List<SysMenu> list, SysMenu t) {
-        // 得到子节点列表
-        List<SysMenu> childList = getChildList(list, t);
-        t.setChildren(childList);
-        for (SysMenu tChild : childList) {
-            if (hasChild(list, tChild)) {
-                // 判断是否有子节点
-                Iterator<SysMenu> it = childList.iterator();
-                while (it.hasNext()) {
-                    SysMenu n = (SysMenu) it.next();
-                    recursionFn(list, n);
-                }
+    private List<SysMenu> getChild(List<SysMenu> allMenuList, Long id) {
+        List<SysMenu> childList = new ArrayList<>();
+
+        for (Iterator<SysMenu> lt = allMenuList.iterator(); lt.hasNext(); ) {
+            SysMenu menu = lt.next();
+            if (menu.getParentId().equals(id)) {
+                childList.add(menu);
+                lt.remove();
             }
         }
-    }
 
-    /**
-     * 得到子节点列表
-     */
-    private List<SysMenu> getChildList(List<SysMenu> list, SysMenu t) {
-        List<SysMenu> tlist = new ArrayList<SysMenu>();
-        Iterator<SysMenu> it = list.iterator();
-        while (it.hasNext()) {
-            SysMenu n = (SysMenu) it.next();
-            if (n.getParentId().longValue() == t.getMenuId().longValue()) {
-                tlist.add(n);
-            }
+            for (SysMenu menu : childList) {
+            menu.setChildren(getChild(allMenuList, menu.getMenuId()));
         }
-        return tlist;
-    }
-
-    /**
-     * 判断是否有子节点
-     */
-    private boolean hasChild(List<SysMenu> list, SysMenu t) {
-        return getChildList(list, t).size() > 0;
+        return childList;
     }
 
 }

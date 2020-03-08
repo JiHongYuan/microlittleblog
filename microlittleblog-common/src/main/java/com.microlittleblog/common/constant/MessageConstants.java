@@ -60,6 +60,22 @@ public class MessageConstants {
     /**
      * 其他数据的权限
      */
-    public static final String PERMISSION = "no.permission";
+    public static final String NO_PERMISSION = "no.permission";
+
+    // 项目配置
+    /**
+     * 项目名称
+     */
+    public static final String PROJECT_NAME = "project.name";
+
+    /**
+     * 项目版本
+     */
+    public static final String PROJECT_VERSION = "project.version";
+
+    /**
+     * 项目版权年份
+     */
+    public static final String PROJECT_COPYRIGHT_YEAR = "project.copyright.year";
 
 }

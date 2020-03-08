@@ -46,11 +46,11 @@ public class SysLoginService {
             throw new UserNotExistsException();
         }
 
-        // 验证码校验
-        if (!StringUtils.isEmpty(ServletUtils.getRequest().getAttribute(ShiroConstants.CURRENT_CAPTCHA))) {
-            AsyncManager.getInstance().execute(AsyncFactory.recordLogin(username, Constants.LOGIN_FAIL, MessageUtils.message(MessageConstants.USER_JCAPTCHA_ERROR)));
-            throw new CaptchaException();
-        }
+//        // 验证码校验
+//        if (!StringUtils.isEmpty(ServletUtils.getRequest().getAttribute(ShiroConstants.CURRENT_CAPTCHA))) {
+//            AsyncManager.getInstance().execute(AsyncFactory.recordLogin(username, Constants.LOGIN_FAIL, MessageUtils.message(MessageConstants.USER_JCAPTCHA_ERROR)));
+//            throw new CaptchaException();
+//        }
 
         // 密码如果不在指定范围内 错误
         if (password.length() < UserConstants.PASSWORD_MIN_LENGTH || password.length() > UserConstants.PASSWORD_MAX_LENGTH) {
@@ -87,7 +87,6 @@ public class SysLoginService {
         }
 
         passwordService.validate(user, password);
-
         AsyncManager.getInstance().execute(AsyncFactory.recordLogin(username, Constants.LOGIN_SUCCESS, MessageUtils.message(MessageConstants.USER_LOGIN_SUCCESS)));
         return user;
     }

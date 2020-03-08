@@ -29,6 +29,7 @@ public class SysUserOnline {
     /**
      * 用户会话id
      */
+    @TableId(type = IdType.INPUT)
     private String sessionId;
 
 

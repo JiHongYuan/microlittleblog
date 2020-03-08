@@ -1,5 +1,7 @@
 package com.microlittleblog.system.domain;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.microlittleblog.common.core.domain.BaseEntity;
 import lombok.*;
@@ -23,6 +25,7 @@ public class SysDictData extends BaseEntity {
     /**
      * 字典编码
      */
+    @TableId(type = IdType.AUTO)
     private Long dictCode;
 
     /**

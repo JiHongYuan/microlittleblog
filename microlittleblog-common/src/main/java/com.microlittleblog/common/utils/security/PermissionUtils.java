@@ -23,7 +23,7 @@ public class PermissionUtils {
      */
     public static String getMsg(String permissionsStr) {
         String permission = StringUtils.substringBetween(permissionsStr, "[", "]");
-        String msg = MessageUtils.message(MessageConstants.PERMISSION, permission);
+        String msg = MessageUtils.message(MessageConstants.NO_PERMISSION, permission);
         if (StringUtils.endsWithIgnoreCase(permission, PermissionConstants.ADD_PERMISSION)) {
             msg = MessageUtils.message(MessageConstants.CREATE_PERMISSION, permission);
 

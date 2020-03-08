@@ -1,14 +1,10 @@
 package com.microlittleblog.system.domain;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.microlittleblog.common.core.domain.BaseEntity;
 import lombok.*;
-import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
-
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
-
 /**
  * 字典类型表 sys_dict_type
  *
@@ -27,6 +23,7 @@ public class SysDictType extends BaseEntity {
     /**
      * 字典主键
      */
+    @TableId(type = IdType.AUTO)
     private Long dictId;
 
     /**

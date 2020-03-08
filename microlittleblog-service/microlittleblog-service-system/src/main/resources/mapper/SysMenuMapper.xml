@@ -2,4 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.microlittleblog.system.mapper.SysMenuMapper">
 
+    <select id="selectMenusByUserId" resultType="com.microlittleblog.system.domain.SysMenu">
+        select
+            distinct m.menu_id, m.parent_id, m.menu_name, m.url, m.visible, ifnull(m.perms, '') as perms,
+            m.target, m.menu_type, m.icon, m.order_num, m.create_time, m.update_time
+        from sys_menu m
+    </select>
 </mapper>
