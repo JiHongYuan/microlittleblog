@@ -36,7 +36,17 @@ public class SysIndexController extends BaseController {
         mmap.put("menus", menus);
         mmap.put("user", user);
         mmap.put("copyrightYear", MessageUtils.message(MessageConstants.PROJECT_COPYRIGHT_YEAR));
+        mmap.put("projectName", MessageUtils.message(MessageConstants.PROJECT_NAME));
         return "index";
+    }
+
+    /**
+     * 系统介绍
+     */
+    @GetMapping("/system/main")
+    public String main(ModelMap mmap) {
+        mmap.put("version", MessageUtils.message(MessageConstants.PROJECT_VERSION));
+        return "main";
     }
 
 }

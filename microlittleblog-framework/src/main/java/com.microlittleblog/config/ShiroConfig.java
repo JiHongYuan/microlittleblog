@@ -6,16 +6,12 @@ import com.microlittleblog.shiro.realm.UserRealm;
 import com.microlittleblog.shiro.session.OnlineSessionDAO;
 import com.microlittleblog.shiro.session.OnlineSessionFactory;
 import com.microlittleblog.shiro.web.filter.LogoutFilter;
-import com.microlittleblog.shiro.web.filter.captcha.CaptchaValidateFilter;
 import com.microlittleblog.shiro.web.filter.kickout.KickoutSessionFilter;
 import com.microlittleblog.shiro.web.filter.online.OnlineSessionFilter;
 import com.microlittleblog.shiro.web.filter.sync.SyncOnlineSessionFilter;
 import com.microlittleblog.shiro.web.session.OnlineWebSessionManager;
 import com.microlittleblog.shiro.web.session.SpringSessionValidationScheduler;
-import org.apache.commons.io.IOUtils;
 import org.apache.shiro.codec.Base64;
-import org.apache.shiro.config.ConfigurationException;
-import org.apache.shiro.io.ResourceUtils;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
@@ -28,9 +24,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import javax.servlet.Filter;
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -220,12 +213,11 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/logout", "logout");
 
         // 不需要拦截的访问
-        filterChainDefinitionMap.put("/login", "anon,captchaValidate");
+        filterChainDefinitionMap.put("/login", "anon");
 
         Map<String, Filter> filters = new LinkedHashMap<String, Filter>();
         filters.put("onlineSession", onlineSessionFilter());
         filters.put("syncOnlineSession", syncOnlineSessionFilter());
-        filters.put("captchaValidate", captchaValidateFilter());
         filters.put("kickout", kickoutSessionFilter());
         // 注销成功，则跳转到指定页面
         filters.put("logout", logoutFilter());
@@ -254,17 +246,6 @@ public class ShiroConfig {
     @Bean
     public SyncOnlineSessionFilter syncOnlineSessionFilter() {
         return new SyncOnlineSessionFilter();
-    }
-
-    /**
-     * 自定义验证码过滤器
-     */
-    @Bean
-    public CaptchaValidateFilter captchaValidateFilter() {
-        CaptchaValidateFilter captchaValidateFilter = new CaptchaValidateFilter();
-        captchaValidateFilter.setCaptchaEnabled(captchaEnabled);
-        captchaValidateFilter.setCaptchaType(captchaType);
-        return captchaValidateFilter;
     }
 
     /**

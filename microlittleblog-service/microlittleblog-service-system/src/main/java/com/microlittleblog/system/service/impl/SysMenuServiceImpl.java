@@ -1,5 +1,8 @@
 package com.microlittleblog.system.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.microlittleblog.common.constant.UserConstants;
 import com.microlittleblog.system.domain.SysMenu;
@@ -27,6 +30,12 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
     public List<SysMenu> selectMenusByUser(SysUser user) {
         List<SysMenu> menuList = menuMapper.selectMenusByUserId(user.getUserId());
         return getChildPerms(menuList);
+    }
+
+    @Override
+    public List<SysMenu> selectMenuList(SysMenu sysMenu) {
+        LambdaQueryWrapper<SysMenu> wrapper = Wrappers.lambdaQuery();
+        return super.list(wrapper);
     }
 
     @Override
@@ -74,7 +83,7 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
             }
         }
 
-            for (SysMenu menu : childList) {
+        for (SysMenu menu : childList) {
             menu.setChildren(getChild(allMenuList, menu.getMenuId()));
         }
         return childList;

@@ -15,12 +15,21 @@ import java.util.List;
 public interface ISysMenuService extends IService<SysMenu> {
 
     /**
-     * 新增保存菜单信息
+     * 查询用户菜单
      *
      * @param user 用户信息
-     * @return List<SysMenu>
+     * @return 用户菜单
      */
     List<SysMenu> selectMenusByUser(SysUser user);
+
+    /**
+     * 查询菜单列表
+     *
+     * @param sysMenu sysMenu
+     * @return 所有菜单
+     */
+    List<SysMenu> selectMenuList(SysMenu sysMenu);
+
 
     /**
      * 新增保存菜单信息
