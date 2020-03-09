@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.microlittleblog.common.constant.UserConstants;
+import com.microlittleblog.common.core.domain.Ztree;
 import com.microlittleblog.system.domain.SysMenu;
 import com.microlittleblog.system.domain.SysUser;
 import com.microlittleblog.system.mapper.SysMenuMapper;
@@ -39,23 +40,27 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
     }
 
     @Override
-    public int insertMenu(SysMenu menu) {
-        menu.setCreateTime(new Date());
-        return menuMapper.insert(menu);
+    public List<Ztree> selectRoleMenuTreeList(Long roleId) {
+        List<Ztree> ztrees = new ArrayList<>();
+        List<SysMenu> menuList = this.selectMenuList(new SysMenu());
+        for (SysMenu menu : menuList) {
+            Ztree ztree = new Ztree();
+            ztree.setId(menu.getMenuId());
+            ztree.setpId(menu.getParentId());
+            ztree.setName(menu.getMenuName() + "<font color='#888'>&nbsp;&nbsp;&nbsp;" + menu.getPerms() + "</font>");
+            ztree.setTitle(menu.getMenuName());
+
+            if(roleId != null){
+
+            }
+            ztrees.add(ztree);
+        }
+        return ztrees;
     }
 
     /**
-     * 修改保存菜单信息
-     *
-     * @param menu 菜单信息
-     * @return 结果
+     * 遍历根节点
      */
-    @Override
-    public int updateMenu(SysMenu menu) {
-        menu.setUpdateTime(new Date());
-        return menuMapper.updateById(menu);
-    }
-
     private List<SysMenu> getChildPerms(List<SysMenu> allMenuList) {
         List<SysMenu> rootList = new ArrayList<>();
         for (Iterator<SysMenu> lt = allMenuList.iterator(); lt.hasNext(); ) {
@@ -72,6 +77,9 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
         return rootList;
     }
 
+    /**
+     * 递归子节点
+     */
     private List<SysMenu> getChild(List<SysMenu> allMenuList, Long id) {
         List<SysMenu> childList = new ArrayList<>();
 

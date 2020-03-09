@@ -84,11 +84,6 @@ public class SysUser extends BaseEntity {
     private String status;
 
     /**
-     * 删除标志（0代表存在 1代表删除）
-     */
-    private String deleted;
-
-    /**
      * 最后登陆IP
      */
     private String loginIp;

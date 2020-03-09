@@ -51,16 +51,4 @@ public class SysDictDataServiceImpl extends ServiceImpl<SysDictDataMapper, SysDi
         return dictDataMapper.deleteBatchIds(Arrays.asList(Convert.toStrArray(ids)));
     }
 
-    @Override
-    public int insertDictData(SysDictData dictData) {
-        dictData.setCreateTime(new Date());
-        return dictDataMapper.insert(dictData);
-    }
-
-    @Override
-    public int updateDictData(SysDictData dictData) {
-        dictData.setUpdateTime(new Date());
-        return dictDataMapper.updateById(dictData);
-    }
-
 }

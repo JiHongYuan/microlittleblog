@@ -76,20 +76,7 @@ public class SysDictTypeServiceImpl extends ServiceImpl<SysDictTypeMapper, SysDi
                 throw new BusinessException(String.format("%1$s已分配,不能删除", dictType.getDictName()));
             }
         }
-
         return dictTypeMapper.deleteBatchIds(Arrays.asList(dictIds));
-    }
-
-    /**
-     * 新增保存字典类型信息
-     *
-     * @param dictType 字典类型信息
-     * @return 结果
-     */
-    @Override
-    public int insertDictType(SysDictType dictType) {
-        dictType.setCreateTime(new Date());
-        return dictTypeMapper.insert(dictType);
     }
 
     /**
@@ -102,7 +89,10 @@ public class SysDictTypeServiceImpl extends ServiceImpl<SysDictTypeMapper, SysDi
     @Transactional(rollbackFor = Exception.class)
     public int updateDictType(SysDictType dictType) {
         SysDictType oldDict = this.selectDictType(SysDictType.builder().dictId(dictType.getDictId()).build());
-        LambdaUpdateWrapper<SysDictData> wrapper = Wrappers.<SysDictData>lambdaUpdate().eq(SysDictData::getDictType, oldDict.getDictType());
+
+        LambdaUpdateWrapper<SysDictData> wrapper = Wrappers.lambdaUpdate();
+        wrapper.eq(SysDictData::getDictType, oldDict.getDictType());
+
         dictDataMapper.update(SysDictData.builder().dictType(oldDict.getDictType()).build(), wrapper);
         return dictTypeMapper.updateById(dictType);
     }
@@ -121,12 +111,6 @@ public class SysDictTypeServiceImpl extends ServiceImpl<SysDictTypeMapper, SysDi
             return UserConstants.DICT_TYPE_NOT_UNIQUE;
         }
         return UserConstants.DICT_TYPE_UNIQUE;
-    }
-
-
-    public String transDictName(SysDictType dictType) {
-        return "(" + dictType.getDictName() + ")" +
-                "&nbsp;&nbsp;&nbsp;" + dictType.getDictType();
     }
 
 }

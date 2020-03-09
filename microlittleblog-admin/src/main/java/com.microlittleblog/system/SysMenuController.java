@@ -1,6 +1,7 @@
 package com.microlittleblog.system;
 
 import com.microlittleblog.common.core.controller.BaseController;
+import com.microlittleblog.common.core.domain.Ztree;
 import com.microlittleblog.system.domain.SysMenu;
 import com.microlittleblog.system.service.ISysMenuService;
 import com.microlittleblog.util.ShiroUtils;
@@ -35,6 +36,15 @@ public class SysMenuController extends BaseController {
     @ResponseBody
     public List<SysMenu> list(SysMenu menu) {
         return menuService.selectMenuList(menu);
+    }
+
+    /**
+     * 加载角色菜单列表树
+     */
+    @GetMapping("/listRoleMenuTreeData")
+    @ResponseBody
+    public List<Ztree> listRoleMenuTreeData(Long roleId) {
+        return menuService.selectRoleMenuTreeList(roleId);
     }
 
 }

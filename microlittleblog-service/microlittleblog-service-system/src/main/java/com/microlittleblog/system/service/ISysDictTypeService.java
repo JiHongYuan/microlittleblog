@@ -38,14 +38,6 @@ public interface ISysDictTypeService extends IService<SysDictType> {
     int deleteDictTypeByIds(String ids) throws Exception;
 
     /**
-     * 新增保存字典类型信息
-     *
-     * @param dictType 字典类型信息
-     * @return 结果
-     */
-    int insertDictType(SysDictType dictType);
-
-    /**
      * 修改保存字典类型信息
      *
      * @param dictType 字典类型信息

@@ -2,7 +2,9 @@ package com.microlittleblog.system.service;
 
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.microlittleblog.common.core.domain.Ztree;
 import com.microlittleblog.system.domain.SysMenu;
+import com.microlittleblog.system.domain.SysRole;
 import com.microlittleblog.system.domain.SysUser;
 
 import java.util.List;
@@ -30,21 +32,11 @@ public interface ISysMenuService extends IService<SysMenu> {
      */
     List<SysMenu> selectMenuList(SysMenu sysMenu);
 
-
     /**
-     * 新增保存菜单信息
+     * 根据角色ID查询菜单
      *
-     * @param menu 菜单信息
-     * @return 结果
+     * @return 菜单列表
      */
-    int insertMenu(SysMenu menu);
-
-    /**
-     * 修改保存菜单信息
-     *
-     * @param menu 菜单信息
-     * @return 结果
-     */
-    int updateMenu(SysMenu menu);
+    List<Ztree> selectRoleMenuTreeList(Long roleId);
 
 }

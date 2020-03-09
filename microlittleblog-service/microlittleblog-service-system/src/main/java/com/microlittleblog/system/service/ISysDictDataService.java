@@ -37,20 +37,4 @@ public interface ISysDictDataService extends IService<SysDictData> {
      */
     int deleteDictDataByIds(String ids);
 
-    /**
-     * 新增保存字典数据信息
-     *
-     * @param dictData 字典数据信息
-     * @return 结果
-     */
-    int insertDictData(SysDictData dictData);
-
-    /**
-     * 修改保存字典数据信息
-     *
-     * @param dictData 字典数据信息
-     * @return 结果
-     */
-    int updateDictData(SysDictData dictData);
-
 }

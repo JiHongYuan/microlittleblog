@@ -35,11 +35,11 @@
                 </div>
 
                 <div class="btn-group-sm" id="toolbar" role="group">
-                    <a class="btn btn-success" onclick="$.operate.add(0)" shiro:hasPermission="system:menu:add">
+                    <a class="btn btn-success" onclick="$.operate.add(0)">
                         <i class="fa fa-plus"></i>
                         新增
                     </a>
-                    <a class="btn btn-primary" onclick="$.operate.edit()" shiro:hasPermission="system:menu:edit">
+                    <a class="btn btn-primary" onclick="$.operate.edit()">
                         <i class="fa fa-edit"></i>
                         修改
                     </a>
@@ -151,9 +151,9 @@
                                 // actions.push('<a class="btn btn-info btn-xs ' + addFlag + '" href="javascript:void(0)" onclick="$.operate.add(\'' + row.menuId + '\')"><i class="fa fa-plus"></i>新增</a> ');
                                 // actions.push('<a class="btn btn-danger btn-xs ' + removeFlag + '" href="javascript:void(0)" onclick="$.operate.remove(\'' + row.menuId + '\')"><i class="fa fa-trash"></i>删除</a>');
 
-                                actions.push('<a class="btn btn-success btn-xs ' +  + '" href="javascript:void(0)" onclick="$.operate.edit(\'' + row.menuId + '\')"><i class="fa fa-edit"></i>编辑</a> ');
-                                actions.push('<a class="btn btn-info btn-xs ' +  + '" href="javascript:void(0)" onclick="$.operate.add(\'' + row.menuId + '\')"><i class="fa fa-plus"></i>新增</a> ');
-                                actions.push('<a class="btn btn-danger btn-xs ' +  + '" href="javascript:void(0)" onclick="$.operate.remove(\'' + row.menuId + '\')"><i class="fa fa-trash"></i>删除</a>');
+                                actions.push('<a class="btn btn-success btn-xs ' + '" href="javascript:void(0)" onclick="$.operate.edit(\'' + row.menuId + '\')"><i class="fa fa-edit"></i>编辑</a> ');
+                                actions.push('<a class="btn btn-info btn-xs ' + '" href="javascript:void(0)" onclick="$.operate.add(\'' + row.menuId + '\')"><i class="fa fa-plus"></i>新增</a> ');
+                                actions.push('<a class="btn btn-danger btn-xs ' + '" href="javascript:void(0)" onclick="$.operate.remove(\'' + row.menuId + '\')"><i class="fa fa-trash"></i>删除</a>');
                                 return actions.join('');
                             }
                         }]
