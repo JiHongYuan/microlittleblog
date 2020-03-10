@@ -33,20 +33,4 @@ public interface ISysUserService extends IService<SysUser> {
      */
     SysUser selectUserByEmail(String email);
 
-    /**
-     * 插入用户信息
-     *
-     * @param user userInfo
-     * @return boolean
-     */
-    boolean insertUser(SysUser user);
-
-    /**
-     * 更新用户信息
-     *
-     * @param user userInfo
-     * @return boolean
-     */
-    boolean updateUser(SysUser user);
-
 }

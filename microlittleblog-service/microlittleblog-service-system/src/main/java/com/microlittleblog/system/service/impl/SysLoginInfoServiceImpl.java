@@ -24,12 +24,6 @@ public class SysLoginInfoServiceImpl extends ServiceImpl<SysLoginInfoMapper, Sys
     private SysLoginInfoMapper loginInfoMapper;
 
     @Override
-    public int insertLoginInfo(SysLoginInfo loginInfo) {
-        loginInfo.setLoginTime(new Date());
-        return loginInfoMapper.insert(loginInfo);
-    }
-
-    @Override
     public int updateLoginInfo(SysLoginInfo loginInfo) {
         return loginInfoMapper.updateById(loginInfo);
     }

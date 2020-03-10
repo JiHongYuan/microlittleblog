@@ -56,11 +56,6 @@ public class SysUserOnlineServiceImpl extends ServiceImpl<SysUserOnlineMapper, S
         userOnlineMapper.deleteBatchIds(sessions);
     }
 
-    @Override
-    public void insertOnline(SysUserOnline online) {
-        userOnlineMapper.insert(online);
-    }
-
     /**
      * 查询会话集合
      *

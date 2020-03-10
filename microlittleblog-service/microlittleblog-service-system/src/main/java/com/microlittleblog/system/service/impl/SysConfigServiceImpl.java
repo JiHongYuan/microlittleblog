@@ -44,18 +44,6 @@ public class SysConfigServiceImpl extends ServiceImpl<SysConfigMapper, SysConfig
     }
 
     @Override
-    public int insertConfig(SysConfig config) {
-        config.setCreateTime(new Date());
-        return configMapper.insert(config);
-    }
-
-    @Override
-    public int updateConfig(SysConfig config) {
-        config.setUpdateTime(new Date());
-        return configMapper.updateById(config);
-    }
-
-    @Override
     public int deleteConfigByIds(String ids) {
         return configMapper.deleteBatchIds(Arrays.asList(Convert.toStrArray(ids)));
     }

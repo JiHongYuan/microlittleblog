@@ -36,22 +36,6 @@ public interface ISysConfigService extends IService<SysConfig> {
     List<SysConfig> selectConfigList(SysConfig config);
 
     /**
-     * 新增参数配置
-     *
-     * @param config 参数配置信息
-     * @return int
-     */
-    int insertConfig(SysConfig config);
-
-    /**
-     * 修改参数配置
-     *
-     * @param config 参数配置信息
-     * @return int
-     */
-    int updateConfig(SysConfig config);
-
-    /**
      * 批量删除参数配置信息
      *
      * @param ids 需要删除的数据ID

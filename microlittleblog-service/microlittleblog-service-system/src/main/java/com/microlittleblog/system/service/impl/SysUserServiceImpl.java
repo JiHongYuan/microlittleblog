@@ -34,15 +34,4 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         return userMapper.selectUserByEmail(email);
     }
 
-    @Override
-    public boolean insertUser(SysUser user) {
-        user.setCreateTime(new Date());
-        return super.save(user);
-    }
-
-    @Override
-    public boolean updateUser(SysUser user) {
-        user.setUpdateTime(new Date());
-        return super.updateById(user);
-    }
 }

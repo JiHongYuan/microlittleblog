@@ -13,14 +13,6 @@ import com.microlittleblog.system.domain.SysLoginInfo;
 public interface ISysLoginInfoService extends IService<SysLoginInfo> {
 
     /**
-     * 新增保存字典类型信息
-     *
-     * @param loginInfo loginInfo
-     * @return int
-     */
-    int insertLoginInfo(SysLoginInfo loginInfo);
-
-    /**
      * 修改保存字典类型信息
      *
      * @param loginInfo loginInfo

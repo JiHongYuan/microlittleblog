@@ -13,6 +13,7 @@ import eu.bitwalker.useragentutils.UserAgent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Date;
 import java.util.TimerTask;
 
 /**
@@ -72,7 +73,8 @@ public class AsyncFactory {
                 loginInfo.setStatus(Constants.FAIL);
             }
             // 插入数据
-            SpringUtils.getBean(SysLoginInfoServiceImpl.class).insertLoginInfo(loginInfo);
+            loginInfo.setLoginTime(new Date());
+            SpringUtils.getBean(SysLoginInfoServiceImpl.class).save(loginInfo);
         });
     }
 

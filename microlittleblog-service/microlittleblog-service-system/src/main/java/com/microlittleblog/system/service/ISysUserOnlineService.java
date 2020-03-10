@@ -36,13 +36,6 @@ public interface ISysUserOnlineService extends IService<SysUserOnline> {
     void batchDeleteOnline(List<String> sessions);
 
     /**
-     * 保存会话信息
-     *
-     * @param online 会话信息
-     */
-    void insertOnline(SysUserOnline online);
-
-    /**
      * 查询会话集合
      *
      * @param userOnline 分页参数

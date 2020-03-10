@@ -1,5 +1,7 @@
 package com.microlittleblog.system.domain;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.*;
 import java.util.Date;
@@ -21,6 +23,7 @@ public class SysLoginInfo {
     /**
      * ID
      */
+    @TableId(type = IdType.AUTO)
     private Long infoId;
 
     /**

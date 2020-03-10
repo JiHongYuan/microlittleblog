@@ -1,6 +1,8 @@
 package com.microlittleblog.system.domain;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.microlittleblog.common.core.domain.BaseEntity;
 import lombok.*;
@@ -28,6 +30,7 @@ public class SysRole extends BaseEntity {
     /**
      * 角色ID
      */
+    @TableId(type = IdType.AUTO)
     private Long roleId;
 
     /**
@@ -64,6 +67,7 @@ public class SysRole extends BaseEntity {
      * 菜单ID列表
      */
     @TableField(exist = false)
+    @Builder.Default
     private List<Long> menuIdList = new ArrayList<>();
 
 }
