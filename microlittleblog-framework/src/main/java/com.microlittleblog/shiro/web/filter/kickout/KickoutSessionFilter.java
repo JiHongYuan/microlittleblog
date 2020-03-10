@@ -151,12 +151,4 @@ public class KickoutSessionFilter extends AccessControlFilter {
         this.sessionManager = sessionManager;
     }
 
-    /**
-     * 设置Cache的key的前缀
-     */
-    public void setCacheManager(CacheManager cacheManager) {
-        // 必须和ehcache缓存配置中的缓存name一致
-        this.cache = cacheManager.getCache(ShiroConstants.SYS_USERCACHE);
-    }
-
 }

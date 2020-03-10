@@ -123,7 +123,7 @@
 			var roleSort = $("input[name='roleSort']").val();
 			var status = $("input[id='status']").is(':checked') == true ? 0 : 1;
 			var remark = $("input[name='remark']").val();
-			var menuIds = $.tree.getCheckedNodes();
+			var menuIdList = $.tree.getCheckedNodes();
 			$.ajax({
 				cache : true,
 				type : "POST",
@@ -134,7 +134,7 @@
 					"roleSort": roleSort,
 					"status": status,
 					"remark": remark,
-					"menuIds": menuIds
+					"menuIdList": menuIdList
 				},
 				async : false,
 				error : function(request) {

@@ -1,6 +1,7 @@
 package com.microlittleblog.system.domain;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.microlittleblog.common.core.domain.BaseEntity;
@@ -22,7 +23,7 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder(toBuilder = true)
-@EqualsAndHashCode(callSuper = true)
+@EqualsAndHashCode(callSuper = false)
 @TableName(value = "sys_user")
 public class SysUser extends BaseEntity {
     private static final long serialVersionUID = 1L;
@@ -92,5 +93,11 @@ public class SysUser extends BaseEntity {
      * 最后登陆时间
      */
     private Date loginTime;
+
+    /**
+     * 角色ID
+     */
+    @TableField(exist = false)
+    private Long roleId;
 
 }

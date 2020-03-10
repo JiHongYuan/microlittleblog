@@ -53,8 +53,9 @@
 	<th:block th:include="include :: footer" />
 	<th:block th:include="include :: ztree-js" />
 	<script type="text/javascript">
+
 	     $(function() {
-			var url = ctx + "system/menu/roleMenuTreeData?roleId=" + $("#roleId").val();
+			var url = ctx + "system/menu/listRoleMenuTreeData?roleId=" + $("#roleId").val();
 			var options = {
 				id: "menuTrees",
 		        url: url,
@@ -69,7 +70,7 @@
 			rules:{
 				roleName:{
 					remote: {
-		                url: ctx + "system/role/checkRoleNameUnique",
+		                url: ctx + "system/role/checkRoleUnique",
 		                type: "post",
 		                dataType: "json",
 		                data: {
@@ -87,7 +88,7 @@
 				},
 				roleKey:{
 					remote: {
-		                url: ctx + "system/role/checkRoleKeyUnique",
+		                url: ctx + "system/role/checkRoleUnique",
 		                type: "post",
 		                dataType: "json",
 		                data: {
@@ -125,7 +126,7 @@
 			var roleSort = $("input[name='roleSort']").val();
 			var status = $("input[id='status']").is(':checked') == true ? 0 : 1;
 			var remark = $("input[name='remark']").val();
-			var menuIds = $.tree.getCheckedNodes();
+			var menuIdList = $.tree.getCheckedNodes();
 			$.ajax({
 				cache : true,
 				type : "POST",
@@ -137,7 +138,7 @@
 					"roleSort": roleSort,
 					"status": status,
 					"remark": remark,
-					"menuIds": menuIds
+					"menuIdList": menuIdList
 				},
 				async : false,
 				error : function(request) {

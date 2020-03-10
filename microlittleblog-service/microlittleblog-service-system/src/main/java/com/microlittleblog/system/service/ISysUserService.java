@@ -3,6 +3,8 @@ package com.microlittleblog.system.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.microlittleblog.system.domain.SysUser;
 
+import java.util.List;
+
 /**
  * @author jihongyuan
  * @date 2020/2/29 18:14
@@ -32,5 +34,21 @@ public interface ISysUserService extends IService<SysUser> {
      * @return SysUser
      */
     SysUser selectUserByEmail(String email);
+
+    /**
+     * 查询已分配用户角色列表
+     *
+     * @param user 用户信息
+     * @return List<SysUser>
+     */
+    List<SysUser> selectAllocatedList(SysUser user);
+
+    /**
+     * 查询未分配用户角色列表
+     *
+     * @param user 用户信息
+     * @return List<SysUser>
+     */
+    List<SysUser> selectUnallocatedList(SysUser user);
 
 }

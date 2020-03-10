@@ -12,4 +12,22 @@
         where email = #{email}
     </select>
 
+    <select id="selectAllocatedList" resultType="com.microlittleblog.system.domain.SysUser">
+        select distinct u.user_id, u.dept_id, u.login_name, u.user_name, u.email, u.avatar,  u.status, u.create_time
+        from sys_user as u
+            left join sys_user_role ur on u.user_id = ur.user_id
+			left join sys_role r on r.role_id = ur.role_id and r.is_deleted = '0'
+		where u.is_deleted = '0'
+		and r.role_id = #{roleId}
+    </select>
+
+    <select id="selectUnallocatedList" resultType="com.microlittleblog.system.domain.SysUser">
+        select distinct u.user_id, u.dept_id, u.login_name, u.user_name, u.email, u.avatar,  u.status, u.create_time
+        from sys_user as u
+            left join sys_user_role ur on u.user_id = ur.user_id
+			left join sys_role r on r.role_id = ur.role_id and r.is_deleted = '0'
+		where u.is_deleted = '0'
+		and (r.role_id != #{roleId} or r.role_id IS NULL)
+    </select>
+
 </mapper>

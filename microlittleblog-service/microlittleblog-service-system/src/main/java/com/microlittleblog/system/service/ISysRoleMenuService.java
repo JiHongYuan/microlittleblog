@@ -8,4 +8,5 @@ import com.microlittleblog.system.domain.SysRoleMenu;
  * @date 2020/3/10 14:34
  */
 public interface ISysRoleMenuService extends IService<SysRoleMenu> {
+
 }

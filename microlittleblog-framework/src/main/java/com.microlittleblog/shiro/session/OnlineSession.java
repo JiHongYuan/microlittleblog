@@ -11,7 +11,7 @@ import org.apache.shiro.session.mgt.SimpleSession;
  * @author ruoyi
  */
 @Data
-@EqualsAndHashCode(callSuper = true)
+@EqualsAndHashCode(callSuper = false)
 public class OnlineSession extends SimpleSession {
     private static final long serialVersionUID = 1L;
 

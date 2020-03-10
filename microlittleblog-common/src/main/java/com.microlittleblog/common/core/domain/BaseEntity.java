@@ -32,7 +32,7 @@ public class BaseEntity implements Serializable {
     /**
      * 创建者
      */
-    private transient String createBy;
+    private String createBy;
 
     /**
      * 创建时间
@@ -43,7 +43,7 @@ public class BaseEntity implements Serializable {
     /**
      * 更新者
      */
-    private transient String updateBy;
+    private String updateBy;
 
     /**
      * 更新时间

@@ -4,7 +4,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.microlittleblog.system.domain.SysRole;
 
 import java.util.List;
-import java.util.Set;
 
 /**
  * 角色业务层
@@ -30,14 +29,6 @@ public interface ISysRoleService extends IService<SysRole> {
     SysRole selectRole(SysRole role);
 
     /**
-     * 根据用户ID查询角色
-     *
-     * @param userId 用户ID
-     * @return 权限列表
-     */
-    Set<String> selectRoleKeys(Long userId);
-
-    /**
      * 校验角色名称是否唯一
      *
      * @param role 角色信息
@@ -61,4 +52,29 @@ public interface ISysRoleService extends IService<SysRole> {
      */
     int updateRole(SysRole role);
 
+    /**
+     * 删除角色和角色菜单
+     *
+     * @param ids 角色信息
+     * @return 结果
+     */
+    int removeRole(String ids);
+
+    /**
+     * 批量添加授权用户角色
+     *
+     * @param roleId  角色ID
+     * @param userIds userIds
+     * @return 结果
+     */
+    int insertAuthUsers(Long roleId, String userIds);
+
+    /**
+     * 批量删除授权用户角色
+     *
+     * @param roleId  角色ID
+     * @param userIds userIds
+     * @return 结果
+     */
+    int removeAuthUsers(Long roleId, String userIds);
 }

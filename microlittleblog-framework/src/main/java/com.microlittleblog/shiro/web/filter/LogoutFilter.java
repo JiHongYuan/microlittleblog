@@ -77,11 +77,4 @@ public class LogoutFilter extends org.apache.shiro.web.filter.authc.LogoutFilter
         return super.getRedirectUrl(request, response, subject);
     }
 
-    /**
-     * 设置Cache的key的前缀
-     */
-    public void setCacheManager(CacheManager cacheManager) {
-        // 必须和ehcache缓存配置中的缓存name一致
-        this.cache = cacheManager.getCache(ShiroConstants.SYS_USERCACHE);
-    }
 }

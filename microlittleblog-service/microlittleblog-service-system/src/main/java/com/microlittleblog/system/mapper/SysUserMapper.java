@@ -3,19 +3,13 @@ package com.microlittleblog.system.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.microlittleblog.system.domain.SysUser;
 
+import java.util.List;
+
 /**
  * @author jihongyuan
  * @date 2020/2/29 18:08
  */
 public interface SysUserMapper extends BaseMapper<SysUser> {
-
-    /**
-     * 查询用户信息
-     *
-     * @param user userInfo
-     * @return SysUser
-     */
-    SysUser selectUser(SysUser user);
 
     /**
      * 通过名次查询用户
@@ -32,5 +26,21 @@ public interface SysUserMapper extends BaseMapper<SysUser> {
      * @return SysUser
      */
     SysUser selectUserByEmail(String email);
+
+    /**
+     * 查询已分配用户角色列表
+     *
+     * @param user 用户信息
+     * @return List<SysUser>
+     */
+    List<SysUser> selectAllocatedList(SysUser user);
+
+    /**
+     * 查询未分配用户角色列表
+     *
+     * @param user 用户信息
+     * @return List<SysUser>
+     */
+    List<SysUser> selectUnallocatedList(SysUser user);
 
 }

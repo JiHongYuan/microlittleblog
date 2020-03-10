@@ -9,6 +9,7 @@ import org.springframework.util.Assert;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -19,10 +20,11 @@ public class CrudUtil {
 
     /**
      * update 解决一对多问题
+     * 多主键 不适合
      */
-    public static <T> void updateCollectionHelper(Wrapper<T> wrapper, List<T> newList, IService<T> service, Class<T> clazz, BaseCrud<T> baseCrud) {
+    public static <T extends BaseEntity> void updateCollectionHelper(Wrapper<T> wrapper, List<T> newList, IService<T> service, Class<T> clazz, BaseCrud<T> baseCrud) {
         String tableIdName = getTableIdName(clazz);
-        Assert.notNull(tableIdName, "tableId Name is null");
+        Assert.notNull(tableIdName, "table id name is null");
 
         List<Long> oldIdList = new ArrayList<>();
         List<T> oldList = service.list(wrapper);
@@ -32,14 +34,19 @@ public class CrudUtil {
 
         for (T obj : newList) {
             Long id = ReflectUtils.invokeGetter(obj, tableIdName);
-            baseCrud.before(obj);
             if (oldIdList.contains(id)) {
-                service.updateById(obj);
+                // 只有当新旧数据不相等 才执行update
+                if (!oldList.contains(obj)) {
+                    baseCrud.updateBefore(obj);
+                    obj.setUpdateTime(new Date());
+                    service.updateById(obj);
+                }
                 oldIdList.remove(id);
             } else if (id == null) {
+                baseCrud.insertBefore(obj);
+                obj.setCreateTime(new Date());
                 service.save(obj);
             }
-            baseCrud.after(obj);
         }
         service.removeByIds(oldIdList);
     }

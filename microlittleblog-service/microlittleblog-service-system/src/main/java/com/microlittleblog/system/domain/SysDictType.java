@@ -19,7 +19,7 @@ import javax.validation.constraints.Size;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder(toBuilder = true)
-@EqualsAndHashCode(callSuper = true)
+@EqualsAndHashCode(callSuper = false)
 @TableName(value = "sys_dict_type")
 public class SysDictType extends BaseEntity {
     private static final long serialVersionUID = 1L;
