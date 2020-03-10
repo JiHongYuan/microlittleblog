@@ -45,4 +45,20 @@ public interface ISysRoleService extends IService<SysRole> {
      */
     String checkRoleUnique(SysRole role);
 
+    /**
+     * 插入角色和角色菜单
+     *
+     * @param role 角色信息
+     * @return 结果
+     */
+    int insertRole(SysRole role);
+
+    /**
+     * 更新角色和角色菜单
+     *
+     * @param role 角色信息
+     * @return 结果
+     */
+    int updateRole(SysRole role);
+
 }

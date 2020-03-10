@@ -10,6 +10,7 @@ import com.microlittleblog.system.domain.SysMenu;
 import com.microlittleblog.system.domain.SysUser;
 import com.microlittleblog.system.mapper.SysMenuMapper;
 import com.microlittleblog.system.service.ISysMenuService;
+import com.microlittleblog.system.service.ISysRoleMenuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,8 +29,8 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
     private SysMenuMapper menuMapper;
 
     @Override
-    public List<SysMenu> selectMenusByUser(SysUser user) {
-        List<SysMenu> menuList = menuMapper.selectMenusByUserId(user.getUserId());
+    public List<SysMenu> selectMenuListByUser(SysUser user) {
+        List<SysMenu> menuList = menuMapper.selectMenuListByUserId(user.getUserId());
         return getChildPerms(menuList);
     }
 
@@ -43,6 +44,12 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
     public List<Ztree> selectRoleMenuTreeList(Long roleId) {
         List<Ztree> ztrees = new ArrayList<>();
         List<SysMenu> menuList = this.selectMenuList(new SysMenu());
+
+        List<SysMenu> roleMenuList = null;
+        if (roleId != null) {
+            roleMenuList = menuMapper.selectMenuListByRoleId(roleId);
+        }
+
         for (SysMenu menu : menuList) {
             Ztree ztree = new Ztree();
             ztree.setId(menu.getMenuId());
@@ -50,8 +57,9 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
             ztree.setName(menu.getMenuName() + "<font color='#888'>&nbsp;&nbsp;&nbsp;" + menu.getPerms() + "</font>");
             ztree.setTitle(menu.getMenuName());
 
-            if(roleId != null){
-
+            // 编辑选中
+            if (roleId != null) {
+                ztree.setChecked(roleMenuList.contains(menu));
             }
             ztrees.add(ztree);
         }

@@ -31,7 +31,7 @@ public class SysIndexController extends BaseController {
     @GetMapping("/index")
     public String index(ModelMap mmap) {
         SysUser user = ShiroUtils.getSysUser();
-        List<SysMenu> menus = menuService.selectMenusByUser(user);
+        List<SysMenu> menus = menuService.selectMenuListByUser(user);
 
         mmap.put("menus", menus);
         mmap.put("user", user);

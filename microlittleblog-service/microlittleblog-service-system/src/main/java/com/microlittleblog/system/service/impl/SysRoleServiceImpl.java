@@ -4,11 +4,18 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.microlittleblog.common.constant.UserConstants;
+import com.microlittleblog.common.utils.crud.BaseCrud;
+import com.microlittleblog.common.utils.crud.CrudUtil;
 import com.microlittleblog.system.domain.SysRole;
+import com.microlittleblog.system.domain.SysRoleMenu;
 import com.microlittleblog.system.mapper.SysRoleMapper;
+import com.microlittleblog.system.mapper.SysRoleMenuMapper;
+import com.microlittleblog.system.service.ISysRoleMenuService;
 import com.microlittleblog.system.service.ISysRoleService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -18,6 +25,11 @@ import java.util.Set;
  */
 @Service
 public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> implements ISysRoleService {
+
+    @Autowired
+    private ISysRoleMenuService roleMenuService;
+    @Autowired
+    private SysRoleMapper roleMapper;
 
     @Override
     public List<SysRole> selectRoleList(SysRole role) {
@@ -52,4 +64,33 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
         }
         return UserConstants.ROLE_NAME_UNIQUE;
     }
+
+    @Override
+    public int insertRole(SysRole role) {
+        List<Long> roleMenuList = role.getMenuIdList();
+        if (roleMenuList.size() > 0) {
+            List<SysRoleMenu> addList = new ArrayList<>();
+            for (Long menuId : roleMenuList) {
+                addList.add(new SysRoleMenu(role.getRoleId(), menuId));
+            }
+            roleMenuService.saveBatch(addList);
+        }
+        return roleMapper.insert(role);
+    }
+
+    @Override
+    public int updateRole(SysRole role) {
+        List<SysRoleMenu> newList = roleMenuService.list(
+                Wrappers.<SysRoleMenu>lambdaQuery().in(SysRoleMenu::getRoleId, role.getMenuIdList()));
+
+        CrudUtil.updateCollectionHelper(Wrappers.<SysRoleMenu>lambdaQuery().eq(SysRoleMenu::getRoleId, role.getRoleId()),
+                newList, roleMenuService, SysRoleMenu.class, new BaseCrud<SysRoleMenu>() {
+            @Override
+            public void before(SysRoleMenu sysRoleMenu) {
+                sysRoleMenu.setRoleId(role.getRoleId());
+            }
+        });
+        return roleMapper.updateById(role);
+    }
+
 }

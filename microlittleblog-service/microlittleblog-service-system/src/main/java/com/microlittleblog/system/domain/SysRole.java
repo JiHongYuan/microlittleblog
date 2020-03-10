@@ -4,8 +4,11 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.microlittleblog.common.core.domain.BaseEntity;
 import lombok.*;
+
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 角色表 sys_role
@@ -56,5 +59,11 @@ public class SysRole extends BaseEntity {
      * 角色状态（0正常 1停用）
      */
     private String status;
+
+    /**
+     * 菜单ID列表
+     */
+    @TableField(exist = false)
+    private List<Long> menuIdList = new ArrayList<>();
 
 }

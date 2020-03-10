@@ -22,7 +22,7 @@ public interface ISysMenuService extends IService<SysMenu> {
      * @param user 用户信息
      * @return 用户菜单
      */
-    List<SysMenu> selectMenusByUser(SysUser user);
+    List<SysMenu> selectMenuListByUser(SysUser user);
 
     /**
      * 查询菜单列表
