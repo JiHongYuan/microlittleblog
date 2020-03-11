@@ -51,4 +51,11 @@ public interface ISysUserService extends IService<SysUser> {
      */
     List<SysUser> selectUnallocatedList(SysUser user);
 
+    /**
+     * 校验用户是否唯一
+     *
+     * @param user 角色信息
+     * @return 结果
+     */
+    String checkUserUnique(SysUser user);
 }

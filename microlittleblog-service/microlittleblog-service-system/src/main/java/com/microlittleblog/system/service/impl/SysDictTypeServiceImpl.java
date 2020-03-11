@@ -12,6 +12,7 @@ import com.microlittleblog.system.domain.SysDictType;
 import com.microlittleblog.system.mapper.SysDictDataMapper;
 import com.microlittleblog.system.mapper.SysDictTypeMapper;
 import com.microlittleblog.system.service.ISysDictTypeService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -42,6 +43,15 @@ public class SysDictTypeServiceImpl extends ServiceImpl<SysDictTypeMapper, SysDi
     @Override
     public List<SysDictType> selectDictTypeList(SysDictType dictType) {
         LambdaQueryWrapper<SysDictType> wrapper = Wrappers.lambdaQuery();
+        if (StringUtils.isNotEmpty(dictType.getDictName())) {
+            wrapper.like(SysDictType::getDictName, dictType.getDictName());
+        }
+        if (StringUtils.isNotEmpty(dictType.getDictType())) {
+            wrapper.like(SysDictType::getDictType, dictType.getDictType());
+        }
+        if (StringUtils.isNotEmpty(dictType.getStatus())) {
+            wrapper.like(SysDictType::getStatus, dictType.getStatus());
+        }
         return dictTypeMapper.selectList(wrapper);
     }
 

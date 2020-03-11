@@ -1,9 +1,13 @@
 package com.microlittleblog.system.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.microlittleblog.common.constant.UserConstants;
 import com.microlittleblog.system.domain.SysUser;
 import com.microlittleblog.system.mapper.SysUserMapper;
 import com.microlittleblog.system.service.ISysUserService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,7 +26,11 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
 
     @Override
     public SysUser selectUser(SysUser user) {
-        return null;
+        LambdaQueryWrapper<SysUser> wrapper = Wrappers.lambdaQuery();
+        if (StringUtils.isNotEmpty(user.getLoginName())) {
+            wrapper.eq(SysUser::getLoginName, user.getLoginName());
+        }
+        return super.getOne(wrapper);
     }
 
     @Override
@@ -43,6 +51,16 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     @Override
     public List<SysUser> selectUnallocatedList(SysUser user) {
         return userMapper.selectUnallocatedList(user);
+    }
+
+    @Override
+    public String checkUserUnique(SysUser user) {
+        long userId = user.getUserId() == null ? -1L : user.getUserId();
+        SysUser info = this.selectUser(user);
+        if (info != null && info.getUserId() != userId) {
+            return UserConstants.ROLE_NAME_NOT_UNIQUE;
+        }
+        return UserConstants.ROLE_NAME_UNIQUE;
     }
 
 }

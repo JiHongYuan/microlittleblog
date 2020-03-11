@@ -73,7 +73,7 @@ public class SysPasswordService {
         redisUtils.delete(username + _RETRY_COUNT);
     }
 
-    private String encryptPassword(String username, String password, String salt) {
+    public String encryptPassword(String username, String password, String salt) {
         return new Md5Hash(username + password + salt).toHex();
     }
 

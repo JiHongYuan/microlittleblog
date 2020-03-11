@@ -16,7 +16,7 @@
                             登录名称：<input type="text" name="loginName"/>
                         </li>
                         <li>
-                            手机号码：<input type="text" name="phonenumber"/>
+                            邮箱：<input type="text" name="email"/>
                         </li>
                         <li>
                             <a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()">
@@ -36,7 +36,7 @@
 </div>
 <th:block th:include="include :: footer"/>
 <script th:inline="javascript">
-    var datas = [[${@dict.getType('sys_normal_disable')}]];
+    var sysNormalDisable = [[${@dict.getType('sys_normal_disable')}]];
     var prefix = ctx + "system/role/authUser";
 
     $(function () {
@@ -82,7 +82,7 @@
                     title: '用户状态',
                     align: 'center',
                     formatter: function (value, row, index) {
-                        return $.table.selectDictLabel(datas, value);
+                        return $.table.selectDictLabel(sysNormalDisable, value);
                     }
                 },
                 {

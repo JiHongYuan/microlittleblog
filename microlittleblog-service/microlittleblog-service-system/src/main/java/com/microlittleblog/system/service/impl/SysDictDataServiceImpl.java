@@ -7,6 +7,7 @@ import com.microlittleblog.common.core.text.Convert;
 import com.microlittleblog.system.domain.SysDictData;
 import com.microlittleblog.system.mapper.SysDictDataMapper;
 import com.microlittleblog.system.service.ISysDictDataService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,6 +29,15 @@ public class SysDictDataServiceImpl extends ServiceImpl<SysDictDataMapper, SysDi
     @Override
     public List<SysDictData> selectDictDataList(SysDictData dictData) {
         LambdaQueryWrapper<SysDictData> wrapper = Wrappers.<SysDictData>lambdaQuery();
+        if(StringUtils.isNotEmpty(dictData.getDictType())){
+            wrapper.eq(SysDictData::getDictType, dictData.getDictType());
+        }
+        if (StringUtils.isNotEmpty(dictData.getStatus())) {
+            wrapper.like(SysDictData::getStatus, dictData.getStatus());
+        }
+        if (StringUtils.isNotEmpty(dictData.getDictLabel())) {
+            wrapper.like(SysDictData::getDictLabel, dictData.getDictLabel());
+        }
         return dictDataMapper.selectList(wrapper);
     }
 

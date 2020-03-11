@@ -94,10 +94,4 @@ public class SysUser extends BaseEntity {
      */
     private Date loginTime;
 
-    /**
-     * 角色ID
-     */
-    @TableField(exist = false)
-    private Long roleId;
-
 }
